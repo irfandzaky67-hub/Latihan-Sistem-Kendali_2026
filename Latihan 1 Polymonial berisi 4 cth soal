@@ -1,0 +1,66 @@
+>> p = [1 -2 1]
+
+p =
+
+     1    -2     1
+
+>> r = roots(p)
+
+r =
+
+     1
+     1
+
+>> pvalue = polyval(p,1)
+
+pvalue =
+
+     0
+
+>> % mengubah polymonial simbolik menjadi matriks polynomial symagain = poly2sym(poly) %mengubah kembali ke polymonial simbolik
+>> syms t
+>> sym = t^3+2*t+6;
+>> poly = sym2poly(sym) %mengubah polynomial simbolik menjadi matriks polynomial
+
+poly =
+
+     1     0     2     6
+
+>> %mengubah polynomial simbolik menjadi matriks polymonial
+>> symagain = poly2sym(poly)
+ 
+symagain =
+ 
+x^3 + 2*x + 6
+ 
+>> syms t
+>> p = 8*t^6+4*t^5-2*t^3+7*t+2;
+>> coeff = coeffs(p)
+ 
+coeff =
+ 
+[2, 7, -2, 4, 8]
+ 
+>> p = [3 2 1]
+
+p =
+
+     3     2     1
+
+>> q = [1 4]
+
+q =
+
+     1     4
+
+>> n = conv(p,q)
+
+n =
+
+     3    14     9     4
+
+>> p_val = polyval(n,-5)
+
+p_val =
+
+   -66
