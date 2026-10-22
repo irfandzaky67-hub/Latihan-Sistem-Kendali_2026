@@ -1,0 +1,38 @@
+>> num=[1 0];
+>> den=[2 3 1];
+>> sys_tf=tf(num,den)
+
+sys_tf = 
+
+         s
+  ---------------
+  2 s^2 + 3 s + 1
+ 
+Continuous-time transfer function.
+Model Properties
+>> sys_ss=ss(sys_tf) %konversi dari bentuk fungsi transfer ke state-space 
+
+sys_ss = 
+
+  A = 
+         x1    x2
+   x1  -1.5  -0.5
+   x2     1     0
+ 
+  B = 
+        u1
+   x1  0.5
+   x2    0
+ 
+  C = 
+       x1  x2
+   y1   1   0
+ 
+  D = 
+       u1
+   y1   0
+ 
+Continuous-time state-space model.
+Model Properties
+>> %perhatikan, bahwa dengan cara ini, matriks A,B,C,D tidak disimpan diruang kerja (workspace).
+>> 
