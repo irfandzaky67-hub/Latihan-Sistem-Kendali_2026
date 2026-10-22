@@ -1,0 +1,48 @@
+>> z=[2 3];
+>> p=[0 1];
+>> k=2;
+>> [A,B,C,D]=zp2ss(z,p,k)
+
+A = 2×2
+     1     0
+     1     0
+
+
+B = 2×1
+     1
+     0
+
+
+C = 1×2
+     -8     12
+
+
+D =
+
+     2
+
+>> sys=ss(A,B,C,D)
+
+sys = 
+
+  A = 
+       x1  x2
+   x1   1   0
+   x2   1   0
+ 
+  B = 
+       u1
+   x1   1
+   x2   0
+ 
+  C = 
+       x1  x2
+   y1  -8  12
+ 
+  D = 
+       u1
+   y1   2
+ 
+Continuous-time state-space model.
+Model Properties
+>> 
