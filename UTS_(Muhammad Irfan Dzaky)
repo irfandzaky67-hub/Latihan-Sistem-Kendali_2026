@@ -1,0 +1,273 @@
+%% SOAL 1: Matrix Manipulation
+>> A = [0 1; -2 -3]; B = [1 0; 3 -2]; C = [1 -1; -2 2];
+>> op_add = A + B
+
+op_add = 2×2
+     1      1
+     1     -5
+
+>> op_sub = A - B
+
+op_sub = 2×2
+     -1      1
+     -5     -1
+
+>> op_trans = A'
+
+op_trans = 2×2
+     0     -2
+     1     -3
+
+>> op_inv = inv(A)
+
+op_inv = 2×2
+     -1.5000     -0.5000
+      1.0000           0
+
+>> diag_A = diag(A)
+
+diag_A = 2×1
+      0
+     -3
+
+>> diag_B = diag(B)
+
+diag_B = 2×1
+      1
+     -2
+
+>> det_A=det(A)
+
+det_A =
+
+     2
+
+>> det_B = det(B)
+
+det_B =
+
+    -2
+
+>> det_AB = det(A*B)
+
+det_AB =
+
+   -4.0000
+
+>> eig_A = eig(A)
+
+eig_A = 2×1
+     -1
+     -2
+
+
+%% SOAL 2: Solving Linear Equation
+>> A_lin = [1 2; 3 4]; B_lin = [5; 6];
+>> X = inv(A_lin) * B_lin
+
+X = 2×1
+     -4.0000
+      4.5000
+
+
+>> %% SOAL 3: Plotting (Plot of a Dynamic System)
+>> t = 0:0.01:10;
+>> y = sin(t).*exp(-0.3*t)
+
+y = 1×1001
+     0     0.0100     0.0199     0.0297     0.0395     0.0492     0.0589     0.0685     0.0780     0.0875     0.0969     0.1062	⋯
+     Display all 1001 columns
+ 
+>> grid on
+>> title('Respon Sistem Dinamik');
+>> plot(t, y, 'Linewidth', 1.5)
+>> xlabel('Waktu (S)');
+>> ylabel('Amplitudo');
+
+
+>> %% SOAL 4: Polynomial
+>> poly_coeff = [1 4 5 2];
+>> roots_poly = roots(poly_coeff)
+
+roots_poly = 3×1 complex
+     -2.0000 + 0.0000i
+     -1.0000 + 0.0000i
+     -1.0000 - 0.0000i
+
+>> orig_poly = poly(roots_poly)
+
+orig_poly = 1×4
+     1.0000     4.0000     5.0000     2.0000
+
+
+%% SOAL 5: Ekspansi Pecahan Parsial (Modul 2)
+>> num=[1 2 3];
+>> den=[1 4 5 2];
+>> [r, p, k] = residue(num, den)
+
+r = 3×1
+      3.0000
+     -2.0000
+      2.0000
+
+p = 3×1
+     -2.0000
+     -1.0000
+     -1.0000
+
+k =
+
+     []
+
+>> [num_rec, den_rec]=residue(r, p, k)
+
+num_rec = 1×3
+     1.0000     2.0000     3.0000
+
+den_rec = 1×4
+     1.0000     4.0000     5.0000     2.0000
+
+>> pzmap(tf(num, den))
+>> grid on
+>> 
+
+%% SOAL 6: Penyusunan Fungsi Transfer (Modul 3)
+>> num=[2 3 1];
+>> den=[1 5 6 2];
+>> sys_tf = tf(num,den)
+
+sys_tf = 
+
+     2 s^2 + 3 s + 1
+  ---------------------
+  s^3 + 5 s^2 + 6 s + 2
+ 
+Continuous-time transfer function.
+Model Properties
+>> sys_zpk = zpk(sys_tf)
+
+sys_zpk = 
+
+       2 (s+1) (s+0.5)
+  --------------------------
+  (s+3.414) (s+1) (s+0.5858)
+ 
+Continuous-time zero/pole/gain model.
+Model Properties
+>> pzmap(sys_tf)
+>> grid on
+>> poles=pole(sys_tf)
+
+poles = 3×1
+     -3.4142
+     -1.0000
+     -0.5858
+>> 
+
+%% SOAL 7: Koneksi Diagram Blok Seri (Modul 4)
+>> G1_s=tf([1 1], [1 3]);
+>> G2_s=tf(1, [100 10 1]);
+>> sys_seri=series(G1_s, G2_s)
+
+sys_seri = 
+
+             s + 1
+  ----------------------------
+  100 s^3 + 310 s^2 + 31 s + 3
+ 
+Continuous-time transfer function.
+Model Properties
+>> step(sys_seri)
+>> grid on
+
+
+%% SOAL 8: Koneksi Diagram Blok Paralel (Modul 4)
+>> G1_s = tf([1 1], [1 3])
+
+G1_s = 
+
+  s + 1
+  -----
+  s + 3
+ 
+Continuous-time transfer function.
+Model Properties
+>> G2_s = tf([1 0], [1 2 5])
+
+G2_s = 
+
+        s
+  -------------
+  s^2 + 2 s + 5
+ 
+Continuous-time transfer function.
+Model Properties
+>> sys_paralel = parallel(G1_s, G2_s)
+
+sys_paralel = 
+
+  s^3 + 4 s^2 + 10 s + 5
+  -----------------------
+  s^3 + 5 s^2 + 11 s + 15
+ 
+Continuous-time transfer function.
+Model Properties
+>> subplot(2,1,1)
+>> bode(sys_paralel)
+>> grid on
+>> subplot(2,1,2)
+>> impulse(sys_paralel)
+>> grid on
+
+
+%% SOAL 9: Sistem Feedback atau Loop Tertutup (Modul 5)
+>> G1_s=tf([1 4], [1 3 2]);
+>> G2_s=tf(1, [1 1]);
+>> sys_closed_s = feedback(G1_s, G2_s)
+
+sys_closed_s = 
+
+      s^2 + 5 s + 4
+  ---------------------
+  s^3 + 4 s^2 + 6 s + 6
+ 
+Continuous-time transfer function.
+Model Properties
+>> pzmap(sys_closed_s)
+>> grid on
+
+%% SOAL 10: Sistem Feedback dengan Gain (K = 10)
+>> num = 10 * [1 4];
+>> den = [1 3 2];
+>> G1_s = tf(num, den)
+
+G1_s = 
+
+    10 s + 40
+  -------------
+  s^2 + 3 s + 2
+ 
+Continuous-time transfer function.
+Model Properties
+>> G2_s = tf(1, [1 1])
+
+G2_s = 
+
+    1
+  -----
+  s + 1
+ 
+Continuous-time transfer function.
+Model Properties
+>> sys_closed_s = feedback(G1_s, G2_s)
+
+sys_closed_s = 
+
+    10 s^2 + 50 s + 40
+  -----------------------
+  s^3 + 4 s^2 + 15 s + 42
+ 
+Continuous-time transfer function.
+Model Properties
+>> pzmap(sys_closed_s)
+>> grid on
